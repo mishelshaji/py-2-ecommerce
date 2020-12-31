@@ -120,3 +120,55 @@ class User(AbstractBaseUser):
         "Does the user have permissions to view the app `app_label`?"
         # Simplest possible answer: Yes, always
         return True
+
+class CustomerDetails(models.Model):
+
+    STATES = (
+        ('Kerala', 'Kerala'),
+        ('Karnataka', 'Karnataka')
+    )
+
+    id = models.BigAutoField(
+        primary_key=True
+    )
+
+    phone = models.CharField(
+        max_length=10,
+        verbose_name='Phone Number',
+        unique=True,
+        validators=[
+            validators.MinLengthValidator(10),
+        ]
+    )
+
+    address = models.TextField(
+        max_length=300,
+        verbose_name='Address'
+    )
+
+    pin = models.CharField(
+        verbose_name="Postal Code",
+        max_length=6,
+        validators=[
+            validators.RegexValidator('^[1-9]{1}[0-9]{2}\\s{0,1}[0-9]{3}$', "Invalid Pin Number")
+        ]
+    )
+
+    city = models.CharField(
+        verbose_name="City",
+        max_length=50,
+        validators=[
+            validators.MinLengthValidator(3, "Invalid city name")
+        ]
+    )
+
+    state = models.CharField(
+        max_length=50,
+        choices=STATES,
+        default='Kerala'
+    )
+
+    user = models.OneToOneField(
+        to=User,
+        on_delete=models.CASCADE
+    )
