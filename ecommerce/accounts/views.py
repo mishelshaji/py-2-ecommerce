@@ -1,5 +1,9 @@
 from django.shortcuts import render
+from .forms import *
 
 # Create your views here.
 def user_login(request):
-    return render(request, 'accounts/login.html')
+    context = {}
+    context['reg_form'] = UserForm()
+    context['details_form'] = CustomerDetailsForm()
+    return render(request, 'accounts/login.html', context)
