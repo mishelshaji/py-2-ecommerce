@@ -40,7 +40,7 @@ class UserForm(forms.ModelForm):
 class CustomerDetailsForm(forms.ModelForm):
     class Meta:
         model = CustomerDetails
-        fields = '__all__'
+        exclude = ['user']
         widgets = {
             'phone': forms.NumberInput(
                 attrs={

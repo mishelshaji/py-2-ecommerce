@@ -1,32 +1,59 @@
 <div class="col-xl-6 col-lg-6 col-md-8">
     <div class="box_account">
         <h3 class="new_client">New Client</h3>
-        <div class="form_container">
+        <form class="form_container" method="POST" action="{% url 'accounts_register' %}">
             <div class="row no-gutters">
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>{{ reg_form.first_name.label }}</label>
                         {{ reg_form.first_name }}
+
+                        {% if reg_form.first_name.errors %}
+                        {% for i in reg_form.first_name.errors %}
+                        <p>{{ i }}</p>
+                        {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group pl-1">
                         <label>{{ reg_form.last_name.label }}</label>
                         {{ reg_form.last_name }}
+
+                        {% if reg_form.last_name.errors %}
+                        {% for i in reg_form.last_name.errors %}
+                        <p>{{ i }}</p>
+                        {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <label>{{ reg_form.email.label }}</label>
                 {{ reg_form.email }}
+                {% if reg_form.email.errors %}
+                {% for i in reg_form.email.errors %}
+                <p>{{ i }}</p>
+                {% endfor %}
+                {% endif %}
             </div>
             <div class="form-group">
                 <label>{{ reg_form.password.label }}</label>
                 {{ reg_form.password }}
+                {% if reg_form.password.errors %}
+                {% for i in reg_form.password.errors %}
+                <p>{{ i }}</p>
+                {% endfor %}
+                {% endif %}
             </div>
             <div class="form-group">
                 <label>{{ reg_form.confirm_password.label }}</label>
                 {{ reg_form.confirm_password }}
+                {% if reg_form.confirm_password.errors %}
+                {% for i in reg_form.confirm_password.errors %}
+                <p>{{ i }}</p>
+                {% endfor %}
+                {% endif %}
             </div>
             <hr>
             <div class="form-group">
@@ -38,18 +65,33 @@
                         <div class="form-group">
                             {{ details_form.phone.label }}
                             {{ details_form.phone }}
+                            {% if details_form.phone.errors %}
+                            {% for i in details_form.phone.errors %}
+                            <p>{{ i }}</p>
+                            {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                     <div class="col-6 pl-1">
                         <div class="form-group">
                             {{ details_form.pin.label }}
                             {{ details_form.pin }}
+                            {% if details_form.pin.errors %}
+                            {% for i in details_form.pin.errors %}
+                            <p>{{ i }}</p>
+                            {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="form-group">
                             {{ details_form.address.label }}
                             {{ details_form.address }}
+                            {% if details_form.address.errors %}
+                            {% for i in details_form.address.errors %}
+                            <p>{{ i }}</p>
+                            {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -59,68 +101,29 @@
                         <div class="form-group">
                             {{ details_form.city.label }}
                             {{ details_form.city }}
+                            {% if details_form.city.errors %}
+                            {% for i in details_form.city.errors %}
+                            <p>{{ i }}</p>
+                            {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                     <div class="col-6 pl-1">
                         <div class="form-group">
                             {{ details_form.state.label }}
                             {{ details_form.state }}
+                            {% if details_form.city.errors %}
+                            {% for i in details_form.city.errors %}
+                            <p>{{ i }}</p>
+                            {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                 </div>
                 <!-- /row -->
-                
+
             </div>
             <!-- /private -->
-            <div class="company box" style="display: none;">
-                <div class="row no-gutters">
-                    <div class="col-12">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Company Name*">
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Full Address">
-                        </div>
-                    </div>
-                </div>
-                <!-- /row -->
-                <div class="row no-gutters">
-                    <div class="col-6 pr-1">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="City*">
-                        </div>
-                    </div>
-                    <div class="col-6 pl-1">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Postal Code*">
-                        </div>
-                    </div>
-                </div>
-                <!-- /row -->
-                <div class="row no-gutters">
-                    <div class="col-6 pr-1">
-                        <div class="form-group">
-                            <div class="custom-select-form">
-                                <select class="wide add_bottom_10" name="country" id="country_2" style="display: none;">
-                                        <option value="" selected="">Country*</option>
-                                        <option value="Europe">Europe</option>
-                                        <option value="United states">United states</option>
-                                        <option value="Asia">Asia</option>
-                                </select><div class="nice-select wide add_bottom_10" tabindex="0"><span class="current">Country*</span><ul class="list"><li data-value="" class="option selected">Country*</li><li data-value="Europe" class="option">Europe</li><li data-value="United states" class="option">United states</li><li data-value="Asia" class="option">Asia</li></ul></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 pl-1">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Telephone *">
-                        </div>
-                    </div>
-                </div>
-                <!-- /row -->
-            </div>
-            <!-- /company -->
             <hr>
             <div class="form-group">
                 <label class="container_check">Accept <a href="#0">Terms and conditions</a>
@@ -128,8 +131,9 @@
                     <span class="checkmark"></span>
                 </label>
             </div>
+            {% csrf_token %}
             <div class="text-center"><input type="submit" value="Register" class="btn_1 full-width"></div>
-        </div>
+        </form>
         <!-- /form_container -->
     </div>
     <!-- /box_account -->
