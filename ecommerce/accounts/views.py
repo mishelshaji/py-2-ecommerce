@@ -24,6 +24,8 @@ def user_login(request):
                 login(request, user)
                 if user.is_customer:
                     return redirect('customer_home')
+                elif user.is_admin:
+                    return redirect('admin_home')
         context = {}
         context['login_form'] = lf
         context['reg_form'] = UserForm()
