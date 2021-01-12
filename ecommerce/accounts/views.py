@@ -1,14 +1,36 @@
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_POST
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm
 from .forms import *
 
 # Create your views here.
 def user_login(request):
-    context = {}
-    context['reg_form'] = UserForm()
-    context['details_form'] = CustomerDetailsForm()
-    return render(request, 'accounts/login.html', context)
+    if request.method == "GET":
+        context = {}
+        context['login_form'] = AuthenticationForm()
+        context['reg_form'] = UserForm()
+        context['details_form'] = CustomerDetailsForm()
+        return render(request, 'accounts/login.html', context)
+    elif request.method == "POST":
+        lf = AuthenticationForm(data=request.POST)
+        if lf.is_valid():
+            username = lf.cleaned_data.get('username')
+            password = lf.cleaned_data.get('password')
+            
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                if user.is_customer:
+                    return redirect('customer_home')
+        context = {}
+        context['login_form'] = lf
+        context['reg_form'] = UserForm()
+        context['details_form'] = CustomerDetailsForm()
+        print('👍👍👍👍👍👍👍👍👍👍👍👍')
+        print(lf.errors)
+        return render(request, 'accounts/login.html', context)
 
 @require_POST
 def register(request):
@@ -29,6 +51,7 @@ def register(request):
         return redirect('accounts_login')
     
     context = {}
+    context['login_form'] = AuthenticationForm()
     context['reg_form'] = uf
     context['details_form'] = cdf
     return render(request, 'accounts/login.html', context)
