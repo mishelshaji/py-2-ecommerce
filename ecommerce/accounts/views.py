@@ -28,8 +28,7 @@ def user_login(request):
         context['login_form'] = lf
         context['reg_form'] = UserForm()
         context['details_form'] = CustomerDetailsForm()
-        print('👍👍👍👍👍👍👍👍👍👍👍👍')
-        print(lf.errors)
+
         return render(request, 'accounts/login.html', context)
 
 @require_POST
