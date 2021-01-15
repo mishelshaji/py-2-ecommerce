@@ -36,7 +36,13 @@
 	
 	<div id="page">
 		
-	{% include 'user/shared/header.html' %}
+	
+	{% if user.is_admin %}
+		{% include 'administrator/shared/header.html' %}
+	{% else %}
+		{% include 'user/shared/header.html' %}
+	{% endif %}
+		
 
 	<main>
         
