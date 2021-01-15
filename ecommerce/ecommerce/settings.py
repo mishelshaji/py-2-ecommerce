@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'administrator',
     'user',
     'customer',
+    'product',
     'widget_tweaks',
 ]
 
