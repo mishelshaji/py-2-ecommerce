@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView
 from product.models import Brand
 from product.forms import BrandForm
 
@@ -15,3 +15,7 @@ class BrandCreateView(CreateView):
     template_name = "administrator/brand/create.html"
     success_url = '/administrator'
     form_class = BrandForm
+
+class BrandListView(ListView):
+    model = Brand
+    template_name = "administrator/brand/list.html"
