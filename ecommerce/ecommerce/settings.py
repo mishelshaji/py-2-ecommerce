@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'user',
     'customer',
     'product',
+    'shop',
     'widget_tweaks',
 ]
 
@@ -140,6 +141,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
+MEDIA_URL = 'content/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 
 AUTH_USER_MODEL = 'accounts.User'
