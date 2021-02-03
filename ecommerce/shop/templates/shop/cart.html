@@ -32,7 +32,7 @@
                 </tr>
             </thead>
             <tbody>
-                
+
                 {% for i in object_list %}
                 <tr>
                     <td>
@@ -53,7 +53,7 @@
                     </td>
                 </tr>
                 {% endfor %}
-                    
+
             </tbody>
         </table>
 
@@ -79,18 +79,15 @@
         <div class="container">
             <div class="row justify-content-end">
                 <div class="col-xl-4 col-lg-4 col-md-6">
-                    <ul>
+                    <ul style="list-style-type: none;">
                         <li>
-                            <span>Subtotal</span> $240.00
+                            <h3><span>Total</span> INR {{ total }}.00</h3>
                         </li>
                         <li>
-                            <span>Shipping</span> $7.00
-                        </li>
-                        <li>
-                            <span>Total</span> $247.00
+                            <h3><span>Total</span> INR {{ total }}.00</h3>
                         </li>
                     </ul>
-                    <a href="cart-2.html" class="btn_1 full-width cart">Proceed to Checkout</a>
+                    <a href="#" class="btn_1 full-width cart" onclick="checkout();">Proceed to Checkout</a>
                 </div>
             </div>
         </div>
@@ -98,4 +95,33 @@
     <!-- /box_cart -->
 
 </main>
+<script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+<script src="https://js.stripe.com/v3/"></script>
+
+<script>
+    function checkout() {
+        var stripe = Stripe('{{ stripe_publishable_key }}');
+        fetch("{% url 'create_checkout_token' %}", {
+            method: "POST",
+        })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (session) {
+                console.log(session)
+                return stripe.redirectToCheckout({ sessionId: session.id });
+            })
+            .then(function (result) {
+                // If redirectToCheckout fails due to a browser or network
+                // error, you should display the localized error message to your
+                // customer using error.message.
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            })
+            .catch(function (error) {
+                console.error("Error:", error);
+            });
+    }
+</script>
 {% endblock content %}
